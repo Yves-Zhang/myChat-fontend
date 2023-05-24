@@ -33,13 +33,13 @@ export default defineConfig((env) => {
     plugins: setupPlugins(viteEnv),
     server: {
       host: '0.0.0.0',
-      port: 1002,
+      port: 8989,
       open: false,
       proxy: {
         '/api': {
           target: viteEnv.VITE_APP_API_BASE_URL,
           changeOrigin: true, // 允许跨域
-          rewrite: path => path.replace('/api/', '/'),
+          // rewrite: path => path.replace('/api/', '/'),
         },
       },
     },
