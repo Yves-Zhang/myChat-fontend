@@ -20,6 +20,8 @@ const modalType = ref<'voice' | 'text'>('voice')
 const dialogForUserPromission = useDialog()
 const uv = useVoiceStore()
 const ms = useMessage()
+const voiceStatus = ref<boolean>(false)
+let flag = false
 
 const openDialogForUserPromission = async () => {
   const hasUsrPromission = await uv.checkUserPermission()
@@ -483,6 +485,33 @@ const footerClass = computed(() => {
   return classes
 })
 
+console.log('9999999')
+
+const onSpaceDown = (event: any) => {
+  console.log(event, 888)
+  if (event.keyCode !== 32)
+    return
+
+  if (flag === true)
+    return
+
+  flag = true
+  voiceStatus.value = true
+  uv.startRecording()
+}
+
+const onSpaceUp = (event: any) => {
+  if (event.keyCode !== 32)
+    return
+
+  flag = false
+  voiceStatus.value = false
+  uv.stopRecording()
+  setTimeout(() => {
+    uv.playRecording()
+  })
+}
+
 onMounted(() => {
   scrollToBottom()
   if (inputRef.value && !isMobile.value)
@@ -496,7 +525,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-full">
+  <div class="flex flex-col w-full h-full" @keydown="onSpaceDown" @keyup="onSpaceUp">
     <HeaderComponent
       v-if="isMobile" :using-context="usingContext" @export="handleExport"
       @toggle-using-context="toggleUsingContext"
@@ -573,7 +602,7 @@ onUnmounted(() => {
 
     <footer v-if="modalType === 'voice'" :class="footerClass">
       <div class="w-full max-w-screen-xl m-auto">
-        <NButton type="primary" :disabled="buttonDisabled" @click="handleSubmit">
+        <NButton type="primary" :disabled="voiceStatus">
           <template #icon>
             <span class="dark:text-black">
               <svg

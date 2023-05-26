@@ -75,6 +75,7 @@ class Media {
     audioElement.src = url
     audioElement.controls = true
     audioElement.autoplay = true // 添加 autoplay 属性
+    audioElement.style.display = 'none'
     document.body.appendChild(audioElement)
   }
 
