@@ -19,12 +19,12 @@ export const useVoiceStore = defineStore('voice-store', {
       return await this.voiceHandler.requestUserPermission()
     },
     // 开始录制
-    startRecording() {
-      this.voiceHandler.startRecording()
+    startRecording(ele: string) {
+      this.voiceHandler.startRecording(ele)
     },
     // 停止录制
-    stopRecording() {
-      this.voiceHandler.stopRecording()
+    async stopRecording() {
+      return await this.voiceHandler.stopRecording()
     },
     // 播放音频
     playRecording() {
