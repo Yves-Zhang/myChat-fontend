@@ -12,43 +12,44 @@ import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
 import { HoverButton, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { useChatStore, usePromptStore, useVoiceStore } from '@/store'
+import { useChatStore, usePromptStore } from '@/store'
+// import { useChatStore, usePromptStore, useVoiceStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 
-const modalType = ref<'voice' | 'text'>('voice')
-const dialogForUserPromission = useDialog()
-const uv = useVoiceStore()
+const modalType = ref<'voice' | 'text'>('text')
+// const dialogForUserPromission = useDialog()
+// const uv = useVoiceStore()
 const ms = useMessage()
 const voiceStatus = ref<boolean>(false)
-let keydownFlag = false
+// let keydownFlag = false
 const myDivRef = ref(null)
 
-const openDialogForUserPromission = async () => {
-  const hasUsrPromission = await uv.checkUserPermission()
-  if (modalType.value === 'voice' && !hasUsrPromission && myDivRef.value) {
-    dialogForUserPromission.warning({
-      title: '提示',
-      content: '使用语音对话需要授权使用麦克风！',
-      maskClosable: false, // 禁止点击遮罩关闭
-      positiveText: '去设置麦克风',
-      negativeText: '继续使用文字对话',
-      onPositiveClick: async () => {
-        try {
-          await uv.requestUserPermission()
-          ms.success('已切换语音对话模式！')
-        }
-        catch (error) {
-          ms.error('授权失败！请手动修改浏览器相关设置！')
-          return false
-        }
-      },
-      onNegativeClick() {
-        modalType.value = 'text'
-      },
-    })
-  }
-}
+// const openDialogForUserPromission = async () => {
+//   const hasUsrPromission = await uv.checkUserPermission()
+//   if (modalType.value === 'voice' && !hasUsrPromission && myDivRef.value) {
+//     dialogForUserPromission.warning({
+//       title: '提示',
+//       content: '使用语音对话需要授权使用麦克风！',
+//       maskClosable: false, // 禁止点击遮罩关闭
+//       positiveText: '去设置麦克风',
+//       negativeText: '继续使用文字对话',
+//       onPositiveClick: async () => {
+//         try {
+//           await uv.requestUserPermission()
+//           ms.success('已切换语音对话模式！')
+//         }
+//         catch (error) {
+//           ms.error('授权失败！请手动修改浏览器相关设置！')
+//           return false
+//         }
+//       },
+//       onNegativeClick() {
+//         modalType.value = 'text'
+//       },
+//     })
+//   }
+// }
 
 let controller = new AbortController()
 
@@ -484,30 +485,30 @@ const footerClass = computed(() => {
   return classes
 })
 
-// 按下空格键开始录制
-document.addEventListener('keydown', (event) => {
-  if (event.code === 'Space' && !keydownFlag) {
-    event.preventDefault()
-    keydownFlag = true
-    uv.startRecording('#myDivRef')
-    voiceStatus.value = true
-  }
-})
+// // 按下空格键开始录制
+// document.addEventListener('keydown', (event) => {
+//   if (event.code === 'Space' && !keydownFlag) {
+//     event.preventDefault()
+//     keydownFlag = true
+//     uv.startRecording('#myDivRef')
+//     voiceStatus.value = true
+//   }
+// })
 
-// 松开空格键结束录制并播放
-document.addEventListener('keyup', async (event) => {
-  if (event.code === 'Space') {
-    event.preventDefault()
-    keydownFlag = false
-    voiceStatus.value = false
-    await uv.stopRecording()
-    uv.playRecording()
-  }
-})
+// // 松开空格键结束录制并播放
+// document.addEventListener('keyup', async (event) => {
+//   if (event.code === 'Space') {
+//     event.preventDefault()
+//     keydownFlag = false
+//     voiceStatus.value = false
+//     await uv.stopRecording()
+//     uv.playRecording()
+//   }
+// })
 
 onMounted(() => {
   scrollToBottom()
-  openDialogForUserPromission()
+  // openDialogForUserPromission()
   if (inputRef.value && !isMobile.value)
     inputRef.value?.focus()
 })
