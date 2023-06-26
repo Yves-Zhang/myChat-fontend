@@ -1,6 +1,13 @@
 import type { AxiosProgressEvent, AxiosResponse, GenericAbortSignal } from 'axios'
+import CryptoJS from 'crypto-js'
 import request from './axios'
 import { useAuthStore } from '@/store'
+
+// 加密函数
+function encryptData(data: string, key: string) {
+  const encrypted = CryptoJS.AES.encrypt(data, key)
+  return encrypted.toString()
+}
 
 export interface HttpOption {
   url: string
@@ -28,10 +35,9 @@ function http<T = any>(
     if (res.data.status === 'Success' || typeof res.data === 'string')
       return res.data
 
-    if (res.data.status === 'Unauthorized') {
+    if (res.data.status === 'Unauthorized')
       authStore.removeToken()
-      window.location.reload()
-    }
+      // window.location.reload()
 
     return Promise.reject(res.data)
   }
@@ -47,9 +53,21 @@ function http<T = any>(
 
   const params = Object.assign(typeof data === 'function' ? data() : data ?? {}, {})
 
+  const keyJson = {
+    timer: new Date().getTime(),
+    domain: window.location.host,
+  }
+
+  const key = encryptData(`${JSON.stringify(keyJson)}`, 'koudingtu2023')
+
+  const CustomHeaders = {
+    ...headers,
+    'X-Custom-Header': key,
+  }
+
   return method === 'GET'
     ? request.get(url, { params, signal, onDownloadProgress }).then(successHandler, failHandler)
-    : request.post(url, params, { headers, signal, onDownloadProgress }).then(successHandler, failHandler)
+    : request.post(url, params, { headers: { ...CustomHeaders }, signal, onDownloadProgress }).then(successHandler, failHandler)
 }
 
 export function get<T = any>(
