@@ -1,7 +1,7 @@
 import axios, { type AxiosResponse } from 'axios'
 import { useAuthStore } from '@/store'
 
-const baseURL = import.meta.env.VITE_APP_API_BASE_URL + import.meta.env.VITE_GLOB_API_URL
+const baseURL = `http://127.0.0.1:8989${import.meta.env.VITE_GLOB_API_URL}`
 
 const service = axios.create({
   baseURL,

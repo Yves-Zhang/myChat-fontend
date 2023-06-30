@@ -86,7 +86,7 @@ class Media {
     return new Promise((resolve: any, reject: any) => {
       this.mediaRecorder.stop((blob: Blob, duration: any) => {
         this.blobData = blob
-        resolve()
+        resolve(blob)
       }, (error: Error) => {
         reject(error)
       })

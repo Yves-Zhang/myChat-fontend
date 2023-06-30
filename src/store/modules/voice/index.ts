@@ -32,7 +32,7 @@ export const useVoiceStore = defineStore('voice-store', {
     },
     // 获取音频blob和url
     getAudioBlob() {
-      this.voiceHandler.getAudioBlob()
+      return this.voiceHandler.getAudioBlob()
     },
   },
 })

@@ -64,3 +64,14 @@ export function fetchVerify<T>(token: string) {
     data: { token },
   })
 }
+
+export function fetchVoiceToText<T>(audio: Blob) {
+  const formData = new FormData()
+  formData.append('audio', audio)
+
+  return post<T>({
+    url: '/speech-to-text',
+    data: formData,
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
+}
