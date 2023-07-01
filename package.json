@@ -26,6 +26,7 @@
     "@jridgewell/sourcemap-codec": "^1.4.15",
     "@traptitech/markdown-it-katex": "^3.6.0",
     "@vueuse/core": "^9.13.0",
+    "cookiejs": "^2.1.2",
     "highlight.js": "^11.7.0",
     "html2canvas": "^1.4.1",
     "katex": "^0.16.4",
