@@ -5,7 +5,7 @@ let baseURL = import.meta.env.VITE_APP_API_BASE_URL + import.meta.env.VITE_GLOB_
 
 if (process.env.NODE_ENV === 'development') {
   // 开发环境逻辑
-  baseURL = `${import.meta.env.VITE_APP_API_BASE_URL_DEV}${+import.meta.env.VITE_GLOB_API_URL}`
+  baseURL = `${import.meta.env.VITE_APP_API_BASE_URL_DEV}${import.meta.env.VITE_GLOB_API_URL}`
 }
 
 const service = axios.create({
