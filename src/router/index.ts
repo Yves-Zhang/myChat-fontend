@@ -2,23 +2,44 @@ import type { App } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { setupPageGuard } from './permission'
-import { ChatLayout } from '@/views/chat/layout'
+import Home from '@/views/home/index.vue'
+import { ChatLayout, ChatLayout_1 } from '@/components/common/layout'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'Root',
-    component: ChatLayout,
+    name: 'Home',
+    component: Home,
     redirect: '/chat',
     children: [
       {
-        path: '/chat/:uuid?',
-        name: 'Chat',
-        component: () => import('@/views/chat/index.vue'),
+        path: '/chat',
+        name: 'chat',
+        component: ChatLayout,
+        redirect: '/chatGpt',
+        children: [
+          {
+            path: '/chatGpt/:uuid?',
+            name: 'chatGpt',
+            component: () => import('@/views/chat/index.vue'),
+          },
+        ],
+      },
+      {
+        path: '/voiceChat',
+        name: 'voiceChat',
+        component: ChatLayout_1,
+        redirect: '/chatGptForVoice',
+        children: [
+          {
+            path: '/chatGptForVoice/:uuid?',
+            name: 'chatGptForVoice',
+            component: () => import('@/views/voiceChat/index.vue'),
+          },
+        ],
       },
     ],
   },
-
   {
     path: '/404',
     name: '404',

@@ -184,7 +184,7 @@ export const useChatStore = defineStore('chat-store', {
 
     async reloadRoute(uuid?: number) {
       this.recordState()
-      await router.push({ name: 'Chat', params: { uuid } })
+      await router.push({ name: 'console', params: { uuid } })
     },
 
     recordState() {
