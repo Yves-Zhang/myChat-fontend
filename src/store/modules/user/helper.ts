@@ -6,6 +6,7 @@ export interface UserInfo {
   avatar: string
   name: string
   description?: string
+  isVip?: boolean
 }
 
 export interface UserState {
@@ -17,6 +18,7 @@ export function defaultSetting(): UserState {
     userInfo: {
       avatar: 'https://web-font-1252405446.cos.ap-guangzhou.myqcloud.com/avatar.png',
       name: 'Good Man',
+      isVip: false,
     },
   }
 }

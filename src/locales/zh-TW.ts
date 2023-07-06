@@ -26,6 +26,7 @@ export default {
     failed: '操作失敗',
     verify: '驗證',
     unauthorizedTips: '未經授權，請先進行驗證。',
+    exit: '退出',
   },
   chat: {
     newChatButton: '新增對話',
@@ -72,6 +73,9 @@ export default {
     httpsProxy: 'HTTPS Proxy',
     balance: 'API Credit 餘額',
     monthlyUsage: '本月使用量',
+    exitCurrentUser: '退出當前使用者',
+    userInfo: '使用者資訊',
+    roleSelect: '選擇角色',
   },
   store: {
     siderButton: '提示詞商店',

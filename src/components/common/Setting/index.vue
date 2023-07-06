@@ -2,10 +2,9 @@
 import { computed, ref } from 'vue'
 import { NModal, NTabPane, NTabs } from 'naive-ui'
 import General from './General.vue'
-import Advanced from './Advanced.vue'
-import About from './About.vue'
 import { useAuthStore } from '@/store'
 import { SvgIcon } from '@/components/common'
+import RoleSelect from '@/components/common/RoleSelect/index.vue'
 
 interface Props {
   visible: boolean
@@ -42,7 +41,7 @@ const show = computed({
         <NTabPane name="General" tab="General">
           <template #tab>
             <SvgIcon class="text-lg" icon="ri:file-user-line" />
-            <span class="ml-2">{{ $t('setting.general') }}</span>
+            <span class="ml-2">{{ $t('setting.userInfo') }}</span>
           </template>
           <div class="min-h-[100px]">
             <General />
@@ -51,19 +50,20 @@ const show = computed({
         <NTabPane v-if="isChatGPTAPI" name="Advanced" tab="Advanced">
           <template #tab>
             <SvgIcon class="text-lg" icon="ri:equalizer-line" />
-            <span class="ml-2">{{ $t('setting.advanced') }}</span>
+            <span class="ml-2">{{ $t('setting.roleSelect') }}</span>
           </template>
           <div class="min-h-[100px]">
-            <Advanced />
+            <!-- <Advanced /> -->
+            <RoleSelect />
           </div>
         </NTabPane>
-        <NTabPane name="Config" tab="Config">
+        <!-- <NTabPane name="Config" tab="Config">
           <template #tab>
             <SvgIcon class="text-lg" icon="ri:list-settings-line" />
             <span class="ml-2">{{ $t('setting.config') }}</span>
           </template>
           <About />
-        </NTabPane>
+        </NTabPane> -->
       </NTabs>
     </div>
   </NModal>

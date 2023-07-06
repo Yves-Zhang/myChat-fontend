@@ -26,6 +26,7 @@ export default {
     failed: '실패',
     verify: '검증',
     unauthorizedTips: '인증되지 않았습니다. 먼저 확인하십시오.',
+    exit: '종료',
   },
   chat: {
     newChatButton: '새로운 채팅',
@@ -72,6 +73,9 @@ export default {
     httpsProxy: 'HTTPS 프록시',
     balance: 'API 잔액',
     monthlyUsage: '월 사용량',
+    exitCurrentUser: '현재 사용자 종료',
+    uuserInfo: '사용자 정보',
+    roleSelect: '역할 선택',
   },
   store: {
     siderButton: '프롬프트 저장소',

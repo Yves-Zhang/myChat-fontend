@@ -26,6 +26,7 @@ export default {
     failed: '操作失败',
     verify: '验证',
     unauthorizedTips: '未经授权，请先进行验证。',
+    exit: '退出',
   },
   chat: {
     newChatButton: '新建聊天',
@@ -72,6 +73,9 @@ export default {
     httpsProxy: 'HTTPS Proxy',
     balance: 'API余额',
     monthlyUsage: '本月使用量',
+    exitCurrentUser: '退出当前用户',
+    userInfo: '用户信息',
+    roleSelect: '角色选择',
   },
   store: {
     siderButton: '提示词商店',

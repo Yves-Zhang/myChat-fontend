@@ -26,6 +26,7 @@ export default {
     failed: 'Failed',
     verify: 'Verify',
     unauthorizedTips: 'Unauthorized, please verify first.',
+    exit: 'Exit',
   },
   chat: {
     newChatButton: 'New Chat',
@@ -72,6 +73,9 @@ export default {
     httpsProxy: 'HTTPS Proxy',
     balance: 'API Balance',
     monthlyUsage: 'Monthly Usage',
+    exitCurrentUser: 'Exit Current User',
+    userInfo: 'UserInfo',
+    roleSelect: 'Role Select',
   },
   store: {
     siderButton: 'Prompt Store',

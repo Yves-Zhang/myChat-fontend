@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-import { NButton, NInput, NPopconfirm, NSelect, useMessage } from 'naive-ui'
-import type { Language, Theme } from '@/store/modules/app/helper'
+import { computed } from 'vue'
+import { NAvatar, NButton, NPopconfirm, useMessage } from 'naive-ui'
+import type { Theme } from '@/store/modules/app/helper'
 import { SvgIcon } from '@/components/common'
 import { useAppStore, useUserStore } from '@/store'
-import type { UserInfo } from '@/store/modules/user/helper'
+// import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
+import VipLogo from '@/components/common/VipLogo.vue'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -20,20 +21,20 @@ const theme = computed(() => appStore.theme)
 
 const userInfo = computed(() => userStore.userInfo)
 
-const avatar = ref(userInfo.value.avatar ?? '')
+// const avatar = ref(userInfo.value.avatar ?? '')
 
-const name = ref(userInfo.value.name ?? '')
+// const name = ref(userInfo.value.name ?? '')
 
 // const description = ref(userInfo.value.description ?? '')
 
-const language = computed({
-  get() {
-    return appStore.language
-  },
-  set(value: Language) {
-    appStore.setLanguage(value)
-  },
-})
+// const language = computed({
+//   get() {
+//     return appStore.language
+//   },
+//   set(value: Language) {
+//     appStore.setLanguage(value)
+//   },
+// })
 
 const themeOptions: { label: string; key: Theme; icon: string }[] = [
   {
@@ -53,18 +54,18 @@ const themeOptions: { label: string; key: Theme; icon: string }[] = [
   },
 ]
 
-const languageOptions: { label: string; key: Language; value: Language }[] = [
-  { label: '简体中文', key: 'zh-CN', value: 'zh-CN' },
-  { label: '繁體中文', key: 'zh-TW', value: 'zh-TW' },
-  { label: 'English', key: 'en-US', value: 'en-US' },
-  { label: '한국어', key: 'ko-KR', value: 'ko-KR' },
-  { label: 'Русский язык', key: 'ru-RU', value: 'ru-RU' },
-]
+// const languageOptions: { label: string; key: Language; value: Language }[] = [
+//   { label: '简体中文', key: 'zh-CN', value: 'zh-CN' },
+//   { label: '繁體中文', key: 'zh-TW', value: 'zh-TW' },
+//   { label: 'English', key: 'en-US', value: 'en-US' },
+//   { label: '한국어', key: 'ko-KR', value: 'ko-KR' },
+//   { label: 'Русский язык', key: 'ru-RU', value: 'ru-RU' },
+// ]
 
-function updateUserInfo(options: Partial<UserInfo>) {
-  userStore.updateUserInfo(options)
-  ms.success(t('common.success'))
-}
+// function updateUserInfo(options: Partial<UserInfo>) {
+//   userStore.updateUserInfo(options)
+//   ms.success(t('common.success'))
+// }
 
 function handleReset() {
   userStore.resetUserInfo()
@@ -125,7 +126,28 @@ function handleImportButtonClick(): void {
 <template>
   <div class="p-4 space-y-5 min-h-[200px]">
     <div class="space-y-6">
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center overflow-hidden">
+        <div class="w-10 h-10 overflow-hidden rounded-full shrink-0">
+          <NAvatar size="large" round :src="userInfo.avatar" />
+        </div>
+        <div class="flex-1 min-w-0 ml-2">
+          <h2 class="overflow-hidden font-bold text-md text-ellipsis whitespace-nowrap">
+            {{ userInfo.name ?? 'Good Man' }}
+          </h2>
+          <span class="cursor-pointer hover:opacity-80">
+            <VipLogo :is-vip="userInfo.isVip" class="inline" /> <span class="text-[#FFD700] ml-2">{{ userInfo.isVip
+              ? '续费' : '马上升级为vip会员 ' }}</span>
+          </span>
+          <!-- <img src="../../../assets/vip.svg" alt="" class="w-10 cursor-pointer"> -->
+          <!-- <p class="overflow-hidden text-xs text-gray-500 text-ellipsis whitespace-nowrap">
+        <span
+          v-if="isString(userInfo.description) && userInfo.description !== ''"
+          v-html="userInfo.description"
+        />
+      </p> -->
+        </div>
+      </div>
+      <!-- <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.avatarLink') }}</span>
         <div class="flex-1">
           <NInput v-model:value="avatar" placeholder="" />
@@ -142,11 +164,8 @@ function handleImportButtonClick(): void {
         <NButton size="tiny" text type="primary" @click="updateUserInfo({ name })">
           {{ $t('common.save') }}
         </NButton>
-      </div>
-      <div
-        class="flex items-center space-x-4"
-        :class="isMobile && 'items-start'"
-      >
+      </div> -->
+      <div class="flex items-center space-x-4" :class="isMobile && 'items-start'">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.chatHistory') }}</span>
 
         <div class="flex flex-wrap items-center gap-4">
@@ -182,11 +201,7 @@ function handleImportButtonClick(): void {
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.theme') }}</span>
         <div class="flex flex-wrap items-center gap-4">
           <template v-for="item of themeOptions" :key="item.key">
-            <NButton
-              size="small"
-              :type="item.key === theme ? 'primary' : undefined"
-              @click="appStore.setTheme(item.key)"
-            >
+            <NButton size="small" :type="item.key === theme ? 'primary' : undefined" @click="appStore.setTheme(item.key)">
               <template #icon>
                 <SvgIcon :icon="item.icon" />
               </template>
@@ -194,7 +209,7 @@ function handleImportButtonClick(): void {
           </template>
         </div>
       </div>
-      <div class="flex items-center space-x-4">
+      <!-- <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.language') }}</span>
         <div class="flex flex-wrap items-center gap-4">
           <NSelect
@@ -204,11 +219,17 @@ function handleImportButtonClick(): void {
             @update-value="value => appStore.setLanguage(value)"
           />
         </div>
-      </div>
-      <div class="flex items-center space-x-4">
+      </div> -->
+      <!-- <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.resetUserInfo') }}</span>
         <NButton size="small" @click="handleReset">
           {{ $t('common.reset') }}
+        </NButton>
+      </div> -->
+      <div class="flex items-center space-x-4">
+        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.exitCurrentUser') }}</span>
+        <NButton size="small" @click="handleReset">
+          {{ $t('common.exit') }}
         </NButton>
       </div>
     </div>

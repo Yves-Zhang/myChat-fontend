@@ -26,6 +26,7 @@ export default {
     failed: 'Не удалось',
     verify: 'Проверить',
     unauthorizedTips: 'Не авторизован, сначала подтвердите свою личность.',
+    exit: 'Выход',
   },
   chat: {
     newChatButton: 'Новый чат',
@@ -72,6 +73,9 @@ export default {
     httpsProxy: 'HTTPS-прокси',
     balance: 'Баланс API',
     monthlyUsage: 'Ежемесячное использование',
+    exitCurrentUser: 'Выход из текущего пользователя',
+    userInfo: 'Информация о пользователе',
+    roleSelect: 'Выбор роли',
   },
   store: {
     siderButton: 'Хранилище подсказок',
