@@ -5,7 +5,7 @@ import { fetchSession } from '@/api'
 
 interface SessionResponse {
   auth: boolean
-  model: 'ChatGPTAPI' | 'ChatGPTUnofficialProxyAPI'
+  model: 'ChatGPTAPI' | 'ChatGPTUnofficialProxyAPI' | 'AuzerChatGptAPI'
 }
 
 export interface AuthState {
@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth-store', {
 
   getters: {
     isChatGPTAPI(state): boolean {
-      return state.session?.model === 'ChatGPTAPI'
+      return state.session?.model === 'ChatGPTAPI' || state.session?.model === 'AuzerChatGptAPI'
     },
   },
 
