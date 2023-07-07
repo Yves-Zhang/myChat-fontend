@@ -69,7 +69,7 @@ watch(
     :style="getMobileClass"
     @update-collapsed="handleUpdateCollapsed"
   >
-    <div class="flex flex-col h-full" :style="mobileSafeArea">
+    <div class="flex flex-col h-full pb-34" :style="mobileSafeArea">
       <main class="flex flex-col flex-1 min-h-0">
         <div class="p-4">
           <NButton dashed block @click="handleAdd">
@@ -79,11 +79,11 @@ watch(
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
           <List />
         </div>
-        <div class="p-4">
+        <!-- <div class="p-4">
           <NButton block @click="show = true">
             {{ $t('store.siderButton') }}
           </NButton>
-        </div>
+        </div> -->
       </main>
       <Footer />
     </div>

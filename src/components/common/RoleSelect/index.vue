@@ -22,7 +22,7 @@ function updateSettings(options: Partial<SettingsState>) {
 //   window.location.reload()
 // }
 
-const activeClass = 'border-2 border-double border-yellow-400'
+const activeClass = 'border-2 border-double border-yellow-400 rounded'
 const activeId = ref(settingStore.id)
 
 const selectRole = (role: any) => {

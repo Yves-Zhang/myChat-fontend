@@ -2,13 +2,15 @@ import { ss } from '@/utils/storage'
 
 const LOCAL_NAME = 'chatStorage'
 
+const defaultRole = ss.get('settingsStorage')
 export function defaultState(): Chat.ChatState {
   const uuid = 1002
   return {
     active: uuid,
     usingContext: true,
-    history: [{ uuid, title: 'New Chat', isEdit: false }],
+    history: [{ uuid, title: 'New Chat', isEdit: false, role: defaultRole }],
     chat: [{ uuid, data: [] }],
+    role: defaultRole,
   }
 }
 

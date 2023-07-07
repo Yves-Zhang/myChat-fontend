@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { NAutoComplete, NButton, NInput, useDialog, useMessage } from 'naive-ui'
+import { NAutoComplete, NAvatar, NButton, NInput, useDialog, useMessage } from 'naive-ui'
 import html2canvas from 'html2canvas'
 import { Message } from './components'
 import { useScroll } from './hooks/useScroll'
@@ -79,6 +79,7 @@ const promptStore = usePromptStore()
 
 // 使用storeToRefs，保证store修改后，联想部分能够重新渲染
 const { promptList: promptTemplate } = storeToRefs<any>(promptStore)
+const aiRole = computed(() => chatStore.role)
 
 // 未知原因刷新页面，loading 状态不会重置，手动重置
 dataSources.value.forEach((item, index) => {
@@ -526,34 +527,35 @@ onUnmounted(() => {
       @toggle-using-context="toggleUsingContext"
     />
     <main class="flex-1 overflow-hidden">
-      <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto">
+      <div class="flex items-center justify-center my-4 text-center text-neutral-300">
+        <NAvatar round :src="aiRole.logo" class="mr-2" />
+        <span>{{ aiRole.role }}</span>
+      </div>
+      <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto pb-10">
         <div
           id="image-wrapper" class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"
           :class="[isMobile ? 'p-2' : 'p-4']"
         >
-          <template v-if="!dataSources.length">
-            <div class="flex items-center justify-center mt-4 text-center text-neutral-300">
-              <SvgIcon icon="ri:bubble-chart-fill" class="mr-2 text-3xl" />
-              <span>Aha~</span>
+          <!-- <template v-if="!dataSources.length"> -->
+
+          <!-- </template>
+          <template v-else> -->
+          <div>
+            <Message
+              v-for="(item, index) of dataSources" :key="index" :date-time="item.dateTime" :text="item.text"
+              :inversion="item.inversion" :error="item.error" :loading="item.loading" @regenerate="onRegenerate(index)"
+              @delete="handleDelete(index)"
+            />
+            <div class="sticky bottom-0 left-0 flex justify-center">
+              <NButton v-if="loading" type="warning" @click="handleStop">
+                <template #icon>
+                  <SvgIcon icon="ri:stop-circle-line" />
+                </template>
+                Stop Responding
+              </NButton>
             </div>
-          </template>
-          <template v-else>
-            <div>
-              <Message
-                v-for="(item, index) of dataSources" :key="index" :date-time="item.dateTime" :text="item.text"
-                :inversion="item.inversion" :error="item.error" :loading="item.loading" @regenerate="onRegenerate(index)"
-                @delete="handleDelete(index)"
-              />
-              <div class="sticky bottom-0 left-0 flex justify-center">
-                <NButton v-if="loading" type="warning" @click="handleStop">
-                  <template #icon>
-                    <SvgIcon icon="ri:stop-circle-line" />
-                  </template>
-                  Stop Responding
-                </NButton>
-              </div>
-            </div>
-          </template>
+          </div>
+          <!-- </template> -->
         </div>
       </div>
     </main>
@@ -602,8 +604,8 @@ onUnmounted(() => {
             <template #icon>
               <span class="dark:text-black">
                 <svg
-                  t="1685069257316" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                  p-id="3112" width="20" height="20"
+                  t="1685069257316" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg" p-id="3112" width="20" height="20"
                 >
                   <path
                     d="M704 192v368c0 52.8-21.6 100.8-56.4 135.6S564.8 752 512 752c-105.6 0-192-86.4-192-192V192C320 86.4 406.4 0 512 0s192 86.4 192 192z"

@@ -1,6 +1,10 @@
 import { defineStore } from 'pinia'
+import type { SettingsState } from '../settings/helper'
 import { getLocalState, setLocalState } from './helper'
 import { router } from '@/router'
+import { ss } from '@/utils/storage'
+
+const LOCAL_NAME = 'settingsStorage'
 
 export const useChatStore = defineStore('chat-store', {
   state: (): Chat.ChatState => getLocalState(),
@@ -29,9 +33,12 @@ export const useChatStore = defineStore('chat-store', {
     },
 
     addHistory(history: Chat.History, chatData: Chat.Chat[] = []) {
+      const localSetting: SettingsState | undefined = ss.get(LOCAL_NAME)
+      history.role = localSetting
       this.history.unshift(history)
       this.chat.unshift({ uuid: history.uuid, data: chatData })
       this.active = history.uuid
+      this.role = localSetting
       this.reloadRoute(history.uuid)
     },
 
@@ -46,9 +53,11 @@ export const useChatStore = defineStore('chat-store', {
     async deleteHistory(index: number) {
       this.history.splice(index, 1)
       this.chat.splice(index, 1)
+      const defaultRole = ss.get('settingsStorage')
 
       if (this.history.length === 0) {
         this.active = null
+        this.role = defaultRole
         this.reloadRoute()
         return
       }
@@ -56,6 +65,7 @@ export const useChatStore = defineStore('chat-store', {
       if (index > 0 && index <= this.history.length) {
         const uuid = this.history[index - 1].uuid
         this.active = uuid
+        this.role = this.history[index - 1].role ?? defaultRole
         this.reloadRoute(uuid)
         return
       }
@@ -64,6 +74,7 @@ export const useChatStore = defineStore('chat-store', {
         if (this.history.length > 0) {
           const uuid = this.history[0].uuid
           this.active = uuid
+          this.role = this.history[0].role ?? defaultRole
           this.reloadRoute(uuid)
         }
       }
@@ -71,12 +82,14 @@ export const useChatStore = defineStore('chat-store', {
       if (index > this.history.length) {
         const uuid = this.history[this.history.length - 1].uuid
         this.active = uuid
+        this.role = this.history[this.history.length - 1].role ?? defaultRole
         this.reloadRoute(uuid)
       }
     },
 
     async setActive(uuid: number) {
       this.active = uuid
+      this.role = this.history.filter(item => item.uuid === uuid)[0]?.role ?? ''
       return await this.reloadRoute(uuid)
     },
 
