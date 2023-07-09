@@ -1,14 +1,16 @@
 <script setup lang='ts'>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { NAvatar } from 'naive-ui'
 import { useUserStore } from '@/store'
 import defaultAvatar from '@/assets/avatar.jpg'
 import { isString } from '@/utils/is'
-import VipLogo from '@/components/common/VipLogo.vue'
+import UpgradeButton from '@/components/common/UpgradeVip/button.vue'
 
 const userStore = useUserStore()
 
 const userInfo = computed(() => userStore.userInfo)
+
+const show = ref(false)
 </script>
 
 <template>
@@ -25,7 +27,7 @@ const userInfo = computed(() => userStore.userInfo)
       <h2 class="overflow-hidden font-bold text-md text-ellipsis whitespace-nowrap">
         {{ userInfo.name ?? 'Good Man' }}
       </h2>
-      <VipLogo :is-vip="userInfo.isVip" class="cursor-pointer hover:opacity-50" />
+      <UpgradeButton />
       <!-- <img src="../../../assets/vip.svg" alt="" class="w-10 cursor-pointer"> -->
       <!-- <p class="overflow-hidden text-xs text-gray-500 text-ellipsis whitespace-nowrap">
         <span

@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const service = axios.create({
-  withCredentials: true,
+  // withCredentials: true, // 暂时不要这个 会造成跨域
   baseURL,
 })
 

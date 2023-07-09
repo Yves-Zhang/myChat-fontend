@@ -4,6 +4,7 @@ import { NAvatar } from 'naive-ui'
 import { useChatStore, useUserStore } from '@/store'
 import { isString } from '@/utils/is'
 import defaultAvatar from '@/assets/avatar.jpg'
+import defaultRole from '@/assets/defaultRole.json'
 
 interface Props {
   image?: boolean
@@ -14,7 +15,7 @@ const userStore = useUserStore()
 const chatStore = useChatStore()
 
 const avatar = computed(() => userStore.userInfo.avatar)
-const aiAvatar = computed(() => chatStore.role.logo)
+const aiAvatar = computed(() => chatStore.role ? chatStore.role.logo : defaultRole.logo)
 </script>
 
 <template>

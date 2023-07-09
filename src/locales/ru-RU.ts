@@ -78,7 +78,7 @@ export default {
     roleSelect: 'Выбор роли',
   },
   store: {
-    siderButton: 'Хранилище подсказок',
+    siderButton: 'Магазин приложений',
     local: 'Локальное',
     online: 'Онлайн',
     title: 'Название',

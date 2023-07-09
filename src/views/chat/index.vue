@@ -10,12 +10,13 @@ import { useScroll } from './hooks/useScroll'
 import { useChat } from './hooks/useChat'
 import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
-import { HoverButton, SvgIcon } from '@/components/common'
+import { HoverButton, Icon, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { useChatStore, usePromptStore } from '@/store'
 // import { useChatStore, usePromptStore, useVoiceStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
+import defaultRole from '@/assets/defaultRole.json'
 
 const modalType = ref<'voice' | 'text'>('text')
 // const dialogForUserPromission = useDialog()
@@ -79,7 +80,7 @@ const promptStore = usePromptStore()
 
 // 使用storeToRefs，保证store修改后，联想部分能够重新渲染
 const { promptList: promptTemplate } = storeToRefs<any>(promptStore)
-const aiRole = computed(() => chatStore.role)
+const aiRole = computed(() => chatStore.role || defaultRole)
 
 // 未知原因刷新页面，loading 状态不会重置，手动重置
 dataSources.value.forEach((item, index) => {
@@ -531,7 +532,7 @@ onUnmounted(() => {
         <NAvatar round :src="aiRole.logo" class="mr-2" />
         <span>{{ aiRole.role }}</span>
       </div>
-      <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto pb-10">
+      <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto pb-16">
         <div
           id="image-wrapper" class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"
           :class="[isMobile ? 'p-2' : 'p-4']"
@@ -564,17 +565,20 @@ onUnmounted(() => {
         <div class="flex items-center justify-between space-x-2">
           <HoverButton @click="handleClear">
             <span class="text-xl text-[#4f555e] dark:text-white">
-              <SvgIcon icon="ri:delete-bin-line" />
+              <!-- <SvgIcon icon="ri:delete-bin-line" /> -->
+              <Icon icon="delete" />
             </span>
           </HoverButton>
           <HoverButton v-if="!isMobile" @click="handleExport">
             <span class="text-xl text-[#4f555e] dark:text-white">
-              <SvgIcon icon="ri:download-2-line" />
-            </span>
+              <Icon icon="download_2">
+                <!-- <SvgIcon icon="ri:download-2-line" /> -->
+              </icon></span>
           </HoverButton>
           <HoverButton v-if="!isMobile" @click="toggleUsingContext">
             <span class="text-xl" :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }">
-              <SvgIcon icon="ri:chat-history-line" />
+              <Icon icon="history" />
+              <!-- <SvgIcon icon="ri:chat-history-line" /> -->
             </span>
           </HoverButton>
           <NAutoComplete v-model:value="prompt" :options="searchOptions" :render-label="renderOption">

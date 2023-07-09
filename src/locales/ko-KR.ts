@@ -78,7 +78,7 @@ export default {
     roleSelect: '역할 선택',
   },
   store: {
-    siderButton: '프롬프트 저장소',
+    siderButton: '애플리케이션 스토어',
     local: '로컬',
     online: '온라인',
     title: '제목',

@@ -78,7 +78,7 @@ export default {
     roleSelect: '角色选择',
   },
   store: {
-    siderButton: '提示词商店',
+    siderButton: '应用商店',
     local: '本地',
     online: '在线',
     title: '标题',

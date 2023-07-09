@@ -78,7 +78,7 @@ export default {
     roleSelect: 'Role Select',
   },
   store: {
-    siderButton: 'Prompt Store',
+    siderButton: 'Application store',
     local: 'Local',
     online: 'Online',
     title: 'Title',

@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { computed } from 'vue'
 import { NInput, NPopconfirm, NScrollbar } from 'naive-ui'
-import { SvgIcon } from '@/components/common'
+import { Icon, SvgIcon } from '@/components/common'
 import { useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { debounce } from '@/utils/functions/debounce'
@@ -67,12 +67,11 @@ function isActive(uuid: number) {
             @click="handleSelect(item)"
           >
             <span>
-              <SvgIcon icon="ri:message-3-line" />
+              <Icon icon="msg" />
             </span>
             <div class="relative flex-1 overflow-hidden break-all text-ellipsis whitespace-nowrap">
               <NInput
-                v-if="item.isEdit"
-                v-model:value="item.title" size="tiny"
+                v-if="item.isEdit" v-model:value="item.title" size="tiny"
                 @keypress="handleEnter(item, false, $event)"
               />
               <span v-else>{{ item.title }}</span>
@@ -80,17 +79,18 @@ function isActive(uuid: number) {
             <div v-if="isActive(item.uuid)" class="absolute z-10 flex visible right-1">
               <template v-if="item.isEdit">
                 <button class="p-1" @click="handleEdit(item, false, $event)">
-                  <SvgIcon icon="ri:save-line" />
+                  <Icon icon="save" />
                 </button>
               </template>
               <template v-else>
-                <button class="p-1">
-                  <SvgIcon icon="ri:edit-line" @click="handleEdit(item, true, $event)" />
+                <button class="p-1" @click="handleEdit(item, true, $event)">
+                  <Icon icon="edit" />
+                  <!-- <SvgIcon icon="ri:edit-line" @click="handleEdit(item, true, $event)" /> -->
                 </button>
                 <NPopconfirm placement="bottom" @positive-click="handleDeleteDebounce(index, $event)">
                   <template #trigger>
                     <button class="p-1">
-                      <SvgIcon icon="ri:delete-bin-line" />
+                      <Icon icon="delete" />
                     </button>
                   </template>
                   {{ $t('chat.deleteHistoryConfirm') }}
