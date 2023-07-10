@@ -1,7 +1,13 @@
 <script lang="ts" setup>
 import { computed, nextTick } from 'vue'
-import { HoverButton, SvgIcon } from '@/components/common'
-import { useAppStore, useChatStore } from '@/store'
+import { HoverButton, Icon, SvgIcon } from '@/components/common'
+import { useAppStore, useChatStore, useStore } from '@/store'
+
+defineProps<Props>()
+
+const emit = defineEmits<Emit>()
+
+const store = useStore()
 
 interface Props {
   usingContext: boolean
@@ -10,11 +16,8 @@ interface Props {
 interface Emit {
   (ev: 'export'): void
   (ev: 'toggleUsingContext'): void
+  (e: 'update:show', visible: boolean): void
 }
-
-defineProps<Props>()
-
-const emit = defineEmits<Emit>()
 
 const appStore = useAppStore()
 const chatStore = useChatStore()
@@ -62,14 +65,22 @@ function toggleUsingContext() {
         {{ currentChatHistory?.title ?? '' }}
       </h1>
       <div class="flex items-center space-x-2">
+        <HoverButton @click="store.open">
+          <span class="text-xl text-[#4f555e] dark:text-white">
+            <!-- <SvgIcon icon="ri:chat-history-line" /> -->
+            <Icon icon="store_2" />
+          </span>
+        </HoverButton>
         <HoverButton @click="toggleUsingContext">
           <span class="text-xl" :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }">
-            <SvgIcon icon="ri:chat-history-line" />
+            <!-- <SvgIcon icon="ri:chat-history-line" /> -->
+            <Icon icon="history" />
           </span>
         </HoverButton>
         <HoverButton @click="handleExport">
           <span class="text-xl text-[#4f555e] dark:text-white">
-            <SvgIcon icon="ri:download-2-line" />
+            <!-- <SvgIcon icon="ri:download-2-line" /> -->
+            <Icon icon="download_2" />
           </span>
         </HoverButton>
       </div>

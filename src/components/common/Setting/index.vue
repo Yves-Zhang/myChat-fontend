@@ -52,7 +52,7 @@ const show = computed({
             <SvgIcon class="text-lg" icon="ri:equalizer-line" />
             <span class="ml-2">{{ $t('setting.roleSelect') }}</span>
           </template>
-          <div class="min-h-[100px]">
+          <div class="min-h-[100px] max-h-[360px]">
             <!-- <Advanced /> -->
             <RoleSelect />
           </div>

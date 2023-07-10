@@ -5,7 +5,7 @@ const props = defineProps<{
   icon: string
 }>()
 
-const { width = 20, height = 20 } = props
+const { width = '1em', height = '1em' } = props
 </script>
 
 <template>
@@ -28,7 +28,7 @@ const { width = 20, height = 20 } = props
   </svg>
 
   <svg
-    v-if="icon === 'delete'" t="1688869844309" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    v-else-if="icon === 'delete'" t="1688869844309" class="icon" viewBox="0 0 1024 1024" version="1.1"
     xmlns="http://www.w3.org/2000/svg" p-id="4566" :width="width" :height="height"
   >
     <path
@@ -42,7 +42,7 @@ const { width = 20, height = 20 } = props
   </svg>
 
   <svg
-    v-if="icon === 'edit'" t="1688871116005" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    v-else-if="icon === 'edit'" t="1688871116005" class="icon" viewBox="0 0 1024 1024" version="1.1"
     xmlns="http://www.w3.org/2000/svg" p-id="22610" :width="width" :height="height"
   >
     <path
@@ -52,7 +52,7 @@ const { width = 20, height = 20 } = props
   </svg>
 
   <svg
-    v-if="icon === 'history'" t="1688870128413" class="icon" viewBox="0 0 1075 1024" version="1.1"
+    v-else-if="icon === 'history'" t="1688870128413" class="icon" viewBox="0 0 1075 1024" version="1.1"
     xmlns="http://www.w3.org/2000/svg" p-id="8472" :width="width" :height="height"
   >
     <path
@@ -62,7 +62,7 @@ const { width = 20, height = 20 } = props
   </svg>
 
   <svg
-    v-if="icon === 'save'" t="1688871262826" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    v-else-if="icon === 'save'" t="1688871262826" class="icon" viewBox="0 0 1024 1024" version="1.1"
     xmlns="http://www.w3.org/2000/svg" p-id="29927" :width="width" :height="height"
   >
     <path
@@ -72,7 +72,7 @@ const { width = 20, height = 20 } = props
   </svg>
 
   <svg
-    v-if="icon === 'download'" t="1688871460572" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    v-else-if="icon === 'download'" t="1688871460572" class="icon" viewBox="0 0 1024 1024" version="1.1"
     xmlns="http://www.w3.org/2000/svg" p-id="38665" :width="width" :height="height"
   >
     <path
@@ -82,13 +82,32 @@ const { width = 20, height = 20 } = props
   </svg>
 
   <svg
-    v-if="icon === 'download_2'"
-    t="1688876636375" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-    p-id="43049" :width="width" :height="height"
+    v-else-if="icon === 'download_2'" t="1688876636375" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" p-id="43049" :width="width" :height="height"
   >
     <path
       d="M734.2 500.3L528.1 758.7c-8.1 10.1-23.5 10.1-31.6 0L290.4 500.3c-10.5-13.2-1.1-32.8 15.8-32.8h121.4V182.4c0-13.5 11-24.5 24.5-24.5h123.8c13.5 0 24.5 11 24.5 24.5v285.1h118c16.9 0.1 26.3 19.6 15.8 32.8zM807 866H217c-13.8 0-25-11.2-25-25s11.2-25 25-25h590c13.8 0 25 11.2 25 25s-11.2 25-25 25z"
       fill="currentColor" p-id="43050"
+    />
+  </svg>
+
+  <svg
+    v-else-if="icon === 'store_1'" t="1688895721961" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" p-id="55146" :width="width" :height="height"
+  >
+    <path
+      d="M864 144H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16z m0 400H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zM464 144H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16z m0 400H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16z"
+      fill="currentColor" p-id="55147"
+    />
+  </svg>
+
+  <svg
+    v-else-if="icon === 'store_2'" t="1688953043068" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" p-id="55301" :width="width" :height="height"
+  >
+    <path
+      d="M864 144H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16z m0 400H560c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16zM464 144H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V160c0-8.8-7.2-16-16-16z m0 400H160c-8.8 0-16 7.2-16 16v304c0 8.8 7.2 16 16 16h304c8.8 0 16-7.2 16-16V560c0-8.8-7.2-16-16-16z"
+      fill="currentColor" p-id="55302"
     />
   </svg>
 </template>

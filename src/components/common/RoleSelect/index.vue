@@ -5,6 +5,13 @@ import { useSettingStore } from '@/store'
 import type { SettingsState } from '@/store/modules/settings/helper'
 import { t } from '@/locales'
 
+defineProps({
+  scrollHeiht: {
+    type: String,
+    default: 'max-h-[360px]',
+  },
+})
+
 const settingStore = useSettingStore()
 
 const ms = useMessage()
@@ -34,24 +41,26 @@ const selectRole = (role: any) => {
 </script>
 
 <template>
-  <NScrollbar class="max-h-[360px] pr-4">
+  <NScrollbar class="w-full pr-4 justify-between" :class="scrollHeiht">
     <div
-      v-for="item in roles " :key="item.id" class="mt-2" :class="[item.id === activeId ? activeClass : '']"
+      v-for="item in roles " :key="item.id" class="p-2 w-full lg:w-1/2 inline-block"
       @click="() => { selectRole(item) }"
     >
-      <NCard hoverable class="cursor-pointer">
-        <div class="flex items-center">
-          <div class="flex-1">
-            <p class="text-l font-bold">
-              {{ item.role }}
-            </p>
-            <p>{{ item.description }}</p>
+      <div :class="[item.id === activeId ? activeClass : '']" class="box-border">
+        <NCard hoverable class="cursor-pointer">
+          <div class="flex items-center">
+            <div class="flex-1">
+              <p class="text-l font-bold">
+                {{ item.role }}
+              </p>
+              <p>{{ item.description }}</p>
+            </div>
+            <div class="ml-4">
+              <NAvatar round :size="48" :src="item.logo" />
+            </div>
           </div>
-          <div class="ml-4">
-            <NAvatar round :size="48" :src="item.logo" />
-          </div>
-        </div>
-      </NCard>
+        </NCard>
+      </div>
     </div>
   </NScrollbar>
 </template>

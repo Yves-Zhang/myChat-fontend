@@ -13,44 +13,16 @@ import HeaderComponent from './components/Header/index.vue'
 import { HoverButton, Icon, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { useChatStore, usePromptStore } from '@/store'
-// import { useChatStore, usePromptStore, useVoiceStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 import defaultRole from '@/assets/defaultRole.json'
 
 const modalType = ref<'voice' | 'text'>('text')
-// const dialogForUserPromission = useDialog()
-// const uv = useVoiceStore()
+
 const ms = useMessage()
 const voiceStatus = ref<boolean>(false)
-// let keydownFlag = false
-const myDivRef = ref(null)
 
-// const openDialogForUserPromission = async () => {
-//   const hasUsrPromission = await uv.checkUserPermission()
-//   if (modalType.value === 'voice' && !hasUsrPromission && myDivRef.value) {
-//     dialogForUserPromission.warning({
-//       title: '提示',
-//       content: '使用语音对话需要授权使用麦克风！',
-//       maskClosable: false, // 禁止点击遮罩关闭
-//       positiveText: '去设置麦克风',
-//       negativeText: '继续使用文字对话',
-//       onPositiveClick: async () => {
-//         try {
-//           await uv.requestUserPermission()
-//           ms.success('已切换语音对话模式！')
-//         }
-//         catch (error) {
-//           ms.error('授权失败！请手动修改浏览器相关设置！')
-//           return false
-//         }
-//       },
-//       onNegativeClick() {
-//         modalType.value = 'text'
-//       },
-//     })
-//   }
-// }
+const myDivRef = ref(null)
 
 let controller = new AbortController()
 
@@ -487,30 +459,8 @@ const footerClass = computed(() => {
   return classes
 })
 
-// // 按下空格键开始录制
-// document.addEventListener('keydown', (event) => {
-//   if (event.code === 'Space' && !keydownFlag) {
-//     event.preventDefault()
-//     keydownFlag = true
-//     uv.startRecording('#myDivRef')
-//     voiceStatus.value = true
-//   }
-// })
-
-// // 松开空格键结束录制并播放
-// document.addEventListener('keyup', async (event) => {
-//   if (event.code === 'Space') {
-//     event.preventDefault()
-//     keydownFlag = false
-//     voiceStatus.value = false
-//     await uv.stopRecording()
-//     uv.playRecording()
-//   }
-// })
-
 onMounted(() => {
   scrollToBottom()
-  // openDialogForUserPromission()
   if (inputRef.value && !isMobile.value)
     inputRef.value?.focus()
 })
@@ -537,10 +487,6 @@ onUnmounted(() => {
           id="image-wrapper" class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"
           :class="[isMobile ? 'p-2' : 'p-4']"
         >
-          <!-- <template v-if="!dataSources.length"> -->
-
-          <!-- </template>
-          <template v-else> -->
           <div>
             <Message
               v-for="(item, index) of dataSources" :key="index" :date-time="item.dateTime" :text="item.text"
@@ -556,7 +502,6 @@ onUnmounted(() => {
               </NButton>
             </div>
           </div>
-          <!-- </template> -->
         </div>
       </div>
     </main>
@@ -565,20 +510,17 @@ onUnmounted(() => {
         <div class="flex items-center justify-between space-x-2">
           <HoverButton @click="handleClear">
             <span class="text-xl text-[#4f555e] dark:text-white">
-              <!-- <SvgIcon icon="ri:delete-bin-line" /> -->
               <Icon icon="delete" />
             </span>
           </HoverButton>
           <HoverButton v-if="!isMobile" @click="handleExport">
             <span class="text-xl text-[#4f555e] dark:text-white">
-              <Icon icon="download_2">
-                <!-- <SvgIcon icon="ri:download-2-line" /> -->
-              </icon></span>
+              <Icon icon="download_2" />
+            </span>
           </HoverButton>
           <HoverButton v-if="!isMobile" @click="toggleUsingContext">
             <span class="text-xl" :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }">
               <Icon icon="history" />
-              <!-- <SvgIcon icon="ri:chat-history-line" /> -->
             </span>
           </HoverButton>
           <NAutoComplete v-model:value="prompt" :options="searchOptions" :render-label="renderOption">
