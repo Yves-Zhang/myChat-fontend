@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { NAvatar } from 'naive-ui'
 import { useUserStore } from '@/store'
 import defaultAvatar from '@/assets/avatar.jpg'
@@ -10,7 +10,7 @@ const userStore = useUserStore()
 
 const userInfo = computed(() => userStore.userInfo)
 
-const show = ref(false)
+// const show = ref(false)
 </script>
 
 <template>

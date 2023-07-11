@@ -18,6 +18,17 @@ const props = defineProps<{
   placement?: Placement
 }>()
 
+interface RoleProps {
+  id: String
+  role: String
+  Category: String
+  description: String
+  systemMessage: String
+  logo: String
+  temperature: number
+  top_p: number
+}
+
 const _roles = Object.assign([], (window as any).roles.roles)
 const roles = ref(_roles)
 const dicts = ref((window as any).roles.dicts)
@@ -42,7 +53,7 @@ const renderOption = ref()
 const filteredCategoryAndRoles = computed(() => {
   const rolesList: any[] = []
   Object.keys(dicts.value.category).forEach((key) => {
-    const role: any = roles.value.filter(role => `${role.Category}` === `${key}`)
+    const role: any = roles.value.filter((role: RoleProps) => `${role.Category}` === `${key}`)
     if (role.length > 0)
       rolesList.push({ role, category: { title: dicts.value.category[key], id: key } })
   })
@@ -56,7 +67,7 @@ const handleEnter = () => {
     return
   }
 
-  roles.value = _roles.filter(role => role.role.includes(value.value))
+  roles.value = _roles.filter((role: RoleProps) => role.role.includes(value.value))
 }
 
 const tabChange = (value: string) => {
@@ -122,11 +133,8 @@ const tabChange = (value: string) => {
               <RoleSelect scroll-heiht="h-full" :roles="roles" />
             </NTabPane>
             <NTabPane
-              v-for="(item, index) in filteredCategoryAndRoles"
-              :key="`${item.category.id}_${index}`"
-              :name="item.category.id"
-              :tab="item.category.title"
-              class="h-full"
+              v-for="(item, index) in filteredCategoryAndRoles" :key="`${item.category.id}_${index}`"
+              :name="item.category.id" :tab="item.category.title" class="h-full"
             >
               <RoleSelect scroll-heiht="h-full" :roles="item.role" />
             </NTabPane>
