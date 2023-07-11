@@ -4,7 +4,6 @@ import { NModal, NTabPane, NTabs } from 'naive-ui'
 import General from './General.vue'
 import { useAuthStore } from '@/store'
 import { SvgIcon } from '@/components/common'
-import RoleSelect from '@/components/common/RoleSelect/index.vue'
 
 interface Props {
   visible: boolean
@@ -47,16 +46,15 @@ const show = computed({
             <General />
           </div>
         </NTabPane>
-        <NTabPane v-if="isChatGPTAPI" name="Advanced" tab="Advanced">
+        <!-- <NTabPane v-if="isChatGPTAPI" name="Advanced" tab="Advanced">
           <template #tab>
             <SvgIcon class="text-lg" icon="ri:equalizer-line" />
             <span class="ml-2">{{ $t('setting.roleSelect') }}</span>
           </template>
           <div class="min-h-[100px] max-h-[360px]">
-            <!-- <Advanced /> -->
             <RoleSelect />
           </div>
-        </NTabPane>
+        </NTabPane> -->
         <!-- <NTabPane name="Config" tab="Config">
           <template #tab>
             <SvgIcon class="text-lg" icon="ri:list-settings-line" />

@@ -121,6 +121,10 @@ function handleImportButtonClick(): void {
   if (fileInput)
     fileInput.click()
 }
+
+function getVip(): void {
+  ms.error('功能维护中，暂未开放')
+}
 </script>
 
 <template>
@@ -134,9 +138,9 @@ function handleImportButtonClick(): void {
           <h2 class="overflow-hidden font-bold text-md text-ellipsis whitespace-nowrap">
             {{ userInfo.name ?? 'Good Man' }}
           </h2>
-          <span class="cursor-pointer hover:opacity-80">
+          <span class="cursor-pointer hover:opacity-80" @click="getVip">
             <VipLogo :is-vip="userInfo.isVip" class="inline" /> <span class="text-[#FFD700] ml-2">{{ userInfo.isVip
-              ? '续费' : '马上升级为vip会员 ' }}</span>
+              ? '续费' : '马上升级为VIP会员 ' }}</span>
           </span>
           <!-- <img src="../../../assets/vip.svg" alt="" class="w-10 cursor-pointer"> -->
           <!-- <p class="overflow-hidden text-xs text-gray-500 text-ellipsis whitespace-nowrap">
