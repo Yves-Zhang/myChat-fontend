@@ -478,11 +478,11 @@ onUnmounted(() => {
       @toggle-using-context="toggleUsingContext"
     />
     <main class="flex-1 overflow-hidden">
-      <div class="flex items-center justify-center my-4 text-center text-neutral-300">
-        <NAvatar round :src="aiRole.logo" class="mr-2" />
-        <span>{{ aiRole.role }}</span>
-      </div>
       <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto pb-16">
+        <div class="flex items-center justify-center my-4 text-center text-neutral-300">
+          <NAvatar round :src="aiRole.logo" class="mr-2" />
+          <span>{{ aiRole.role }}</span>
+        </div>
         <div
           id="image-wrapper" class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"
           :class="[isMobile ? 'p-2' : 'p-4']"

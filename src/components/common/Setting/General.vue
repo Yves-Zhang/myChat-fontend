@@ -1,19 +1,18 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { NAvatar, NButton, NPopconfirm, useMessage } from 'naive-ui'
+import { NAvatar, NButton, useMessage } from 'naive-ui'
 import type { Theme } from '@/store/modules/app/helper'
 import { SvgIcon } from '@/components/common'
 import { useAppStore, useUserStore } from '@/store'
 // import type { UserInfo } from '@/store/modules/user/helper'
-import { getCurrentDate } from '@/utils/functions'
-import { useBasicLayout } from '@/hooks/useBasicLayout'
+// import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import VipLogo from '@/components/common/VipLogo.vue'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
 
-const { isMobile } = useBasicLayout()
+// const { isMobile } = useBasicLayout()
 
 const ms = useMessage()
 
@@ -73,54 +72,54 @@ function handleReset() {
   window.location.reload()
 }
 
-function exportData(): void {
-  const date = getCurrentDate()
-  const data: string = localStorage.getItem('chatStorage') || '{}'
-  const jsonString: string = JSON.stringify(JSON.parse(data), null, 2)
-  const blob: Blob = new Blob([jsonString], { type: 'application/json' })
-  const url: string = URL.createObjectURL(blob)
-  const link: HTMLAnchorElement = document.createElement('a')
-  link.href = url
-  link.download = `chat-store_${date}.json`
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-}
+// function exportData(): void {
+//   const date = getCurrentDate()
+//   const data: string = localStorage.getItem('chatStorage') || '{}'
+//   const jsonString: string = JSON.stringify(JSON.parse(data), null, 2)
+//   const blob: Blob = new Blob([jsonString], { type: 'application/json' })
+//   const url: string = URL.createObjectURL(blob)
+//   const link: HTMLAnchorElement = document.createElement('a')
+//   link.href = url
+//   link.download = `chat-store_${date}.json`
+//   document.body.appendChild(link)
+//   link.click()
+//   document.body.removeChild(link)
+// }
 
-function importData(event: Event): void {
-  const target = event.target as HTMLInputElement
-  if (!target || !target.files)
-    return
+// function importData(event: Event): void {
+//   const target = event.target as HTMLInputElement
+//   if (!target || !target.files)
+//     return
 
-  const file: File = target.files[0]
-  if (!file)
-    return
+//   const file: File = target.files[0]
+//   if (!file)
+//     return
 
-  const reader: FileReader = new FileReader()
-  reader.onload = () => {
-    try {
-      const data = JSON.parse(reader.result as string)
-      localStorage.setItem('chatStorage', JSON.stringify(data))
-      ms.success(t('common.success'))
-      location.reload()
-    }
-    catch (error) {
-      ms.error(t('common.invalidFileFormat'))
-    }
-  }
-  reader.readAsText(file)
-}
+//   const reader: FileReader = new FileReader()
+//   reader.onload = () => {
+//     try {
+//       const data = JSON.parse(reader.result as string)
+//       localStorage.setItem('chatStorage', JSON.stringify(data))
+//       ms.success(t('common.success'))
+//       location.reload()
+//     }
+//     catch (error) {
+//       ms.error(t('common.invalidFileFormat'))
+//     }
+//   }
+//   reader.readAsText(file)
+// }
 
-function clearData(): void {
-  localStorage.removeItem('chatStorage')
-  location.reload()
-}
+// function clearData(): void {
+//   localStorage.removeItem('chatStorage')
+//   location.reload()
+// }
 
-function handleImportButtonClick(): void {
-  const fileInput = document.getElementById('fileInput') as HTMLElement
-  if (fileInput)
-    fileInput.click()
-}
+// function handleImportButtonClick(): void {
+//   const fileInput = document.getElementById('fileInput') as HTMLElement
+//   if (fileInput)
+//     fileInput.click()
+// }
 
 function getVip(): void {
   ms.error('功能维护中，暂未开放')
@@ -169,7 +168,7 @@ function getVip(): void {
           {{ $t('common.save') }}
         </NButton>
       </div> -->
-      <div class="flex items-center space-x-4" :class="isMobile && 'items-start'">
+      <!-- <div class="flex items-center space-x-4" :class="isMobile && 'items-start'">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.chatHistory') }}</span>
 
         <div class="flex flex-wrap items-center gap-4">
@@ -200,7 +199,7 @@ function getVip(): void {
             {{ $t('chat.clearHistoryConfirm') }}
           </NPopconfirm>
         </div>
-      </div>
+      </div> -->
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.theme') }}</span>
         <div class="flex flex-wrap items-center gap-4">

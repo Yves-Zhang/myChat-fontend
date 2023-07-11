@@ -77,8 +77,11 @@ const tabChange = (value: string) => {
 
 <template>
   <NDrawer
-    v-model:show="show" :placement="placement" class="w-full lg:w-2/5 md:w-1/2 lg:min-w-[700px]"
+    v-model:show="show"
+    :placement="placement"
+    class="w-full lg:w-2/5 md:w-1/2 lg:min-w-[700px]"
     style="width: none"
+    :mask-closable="false"
   >
     <NDrawerContent closable>
       <template #header>
