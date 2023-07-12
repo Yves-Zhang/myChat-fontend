@@ -1,15 +1,16 @@
 import { LOCAL_NAME, LOCAL_SETTING } from '../map'
 import { ss } from '@/utils/storage'
+import defaultRole from '@/assets/defaultRole.json'
 
-const defaultRole = ss.get(LOCAL_SETTING)
+const _defaultRole = ss.get(LOCAL_SETTING) || defaultRole
 export function defaultState(): Chat.ChatState {
   const uuid = 1002
   return {
     active: uuid,
     usingContext: true,
-    history: [{ uuid, title: 'New Chat', isEdit: false, role: defaultRole }],
+    history: [{ uuid, title: 'New Chat', isEdit: false, role: _defaultRole }],
     chat: [{ uuid, data: [] }],
-    role: defaultRole,
+    role: _defaultRole,
   }
 }
 
