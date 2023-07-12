@@ -17,8 +17,6 @@ import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 import defaultRole from '@/assets/defaultRole.json'
 
-const modalType = ref<'voice' | 'text'>('text')
-
 const ms = useMessage()
 const voiceStatus = ref<boolean>(false)
 
@@ -478,7 +476,7 @@ onUnmounted(() => {
       @toggle-using-context="toggleUsingContext"
     />
     <main class="flex-1 overflow-hidden">
-      <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto pb-16">
+      <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto pb-8">
         <div class="flex items-center justify-center my-4 text-center text-neutral-300">
           <NAvatar round :src="aiRole.logo" class="mr-2" />
           <span>{{ aiRole.role }}</span>
@@ -505,7 +503,7 @@ onUnmounted(() => {
         </div>
       </div>
     </main>
-    <footer v-if="modalType === 'text'" :class="footerClass">
+    <footer :class="footerClass">
       <div class="w-full max-w-screen-xl m-auto">
         <div class="flex items-center justify-between space-x-2">
           <HoverButton @click="handleClear">
@@ -541,32 +539,8 @@ onUnmounted(() => {
           </NButton>
         </div>
       </div>
-    </footer>
-
-    <footer v-if="modalType === 'voice'" :class="footerClass">
-      <div class="w-full max-w-screen-xl m-auto">
-        <div class="flex items-center justify-between space-x-2">
-          <NButton type="primary" :disabled="voiceStatus">
-            <template #icon>
-              <span class="dark:text-black">
-                <svg
-                  t="1685069257316" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                  xmlns="http://www.w3.org/2000/svg" p-id="3112" width="20" height="20"
-                >
-                  <path
-                    d="M704 192v368c0 52.8-21.6 100.8-56.4 135.6S564.8 752 512 752c-105.6 0-192-86.4-192-192V192C320 86.4 406.4 0 512 0s192 86.4 192 192z"
-                    p-id="3113" fill="#ffffff"
-                  />
-                  <path
-                    d="M816 496v144c0 2.8-0.4 5.6-1.1 8.4-18.5 68.2-58.9 126.1-112.3 166.9-43.5 33.2-95.6 55.2-151.6 62.2-4 0.5-7 3.9-7 7.9V944c0 8.8 7.2 16 16 16h80c35.3 0 64 28.7 64 64H320c0-35.3 28.7-64 64-64h80c8.8 0 16-7.2 16-16v-58.5c0-4-3-7.4-7-7.9-124.8-15.7-230.3-105.5-263.9-229.2-0.7-2.7-1.1-5.6-1.1-8.4V496.7c0-17.4 13.7-32.2 31.1-32.7 18.1-0.5 32.9 14 32.9 32v129.8c0 6.9 1.1 13.8 3.3 20.3C309.3 746.9 404.6 816 512 816s202.7-69.1 236.7-169.9c2.2-6.5 3.3-13.4 3.3-20.3V496.7c0-17.4 13.7-32.2 31.1-32.7 18.1-0.5 32.9 14 32.9 32z"
-                    p-id="3114" fill="#ffffff"
-                  />
-                </svg>
-              </span>
-            </template>
-          </NButton>
-          <div id="myDivRef" ref="myDivRef" class="h-8 w-full rounded bg-[#F4F6F8] dark:bg-[#1e1e20]" />
-        </div>
+      <div class="w-full max-w-screen-xl m-auto opacity-50 items-center justify-center text-center mt-2">
+        <a class="text-s" href="https://beian.miit.gov.cn/">深圳市扣叮兔科技有限公司 粤ICP备2023066911号</a>
       </div>
     </footer>
   </div>
