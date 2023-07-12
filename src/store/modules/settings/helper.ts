@@ -1,6 +1,6 @@
+import { LOCAL_SETTING } from '../map'
 import { ss } from '@/utils/storage'
 import defaultRole from '@/assets/defaultRole.json'
-const LOCAL_NAME = 'settingsStorage'
 
 export interface SettingsState {
   id: number
@@ -19,14 +19,14 @@ export function defaultSetting(): SettingsState {
 }
 
 export function getLocalState(): SettingsState {
-  const localSetting: SettingsState | undefined = ss.get(LOCAL_NAME)
+  const localSetting: SettingsState | undefined = ss.get(LOCAL_SETTING)
   return { ...defaultSetting(), ...localSetting }
 }
 
 export function setLocalState(setting: SettingsState): void {
-  ss.set(LOCAL_NAME, setting)
+  ss.set(LOCAL_SETTING, setting)
 }
 
 export function removeLocalState() {
-  ss.remove(LOCAL_NAME)
+  ss.remove(LOCAL_SETTING)
 }

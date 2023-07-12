@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia'
 import type { SettingsState } from '../settings/helper'
+import { LOCAL_SETTING } from '../map'
 import { getLocalState, setLocalState } from './helper'
 import { router } from '@/router'
 import { ss } from '@/utils/storage'
-
-const LOCAL_NAME = 'settingsStorage'
 
 export const useChatStore = defineStore('chat-store', {
   state: (): Chat.ChatState => getLocalState(),
@@ -33,7 +32,7 @@ export const useChatStore = defineStore('chat-store', {
     },
 
     addHistory(history: Chat.History, chatData: Chat.Chat[] = []) {
-      const localSetting: SettingsState | undefined = ss.get(LOCAL_NAME)
+      const localSetting: SettingsState | undefined = ss.get(LOCAL_SETTING)
       history.role = localSetting
       this.history.unshift(history)
       this.chat.unshift({ uuid: history.uuid, data: chatData })
@@ -53,7 +52,7 @@ export const useChatStore = defineStore('chat-store', {
     async deleteHistory(index: number) {
       this.history.splice(index, 1)
       this.chat.splice(index, 1)
-      const defaultRole = ss.get('settingsStorage')
+      const defaultRole = ss.get('LOCAL_SETTING')
 
       if (this.history.length === 0) {
         this.active = null

@@ -65,7 +65,7 @@ function http<T = any>(
   }
 
   const key = encryptData(`${JSON.stringify(keyJson)}`, 'koudingtu2023')
-  const token = Cookies.get('token')
+  const { token } = Cookies.all()
 
   if (!token)
     window.location.href = 'https://ai.koudingtu.com/webapp/authPage/#/'

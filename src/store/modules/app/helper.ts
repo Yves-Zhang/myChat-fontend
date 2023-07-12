@@ -1,6 +1,5 @@
+import { LOCAL_APP } from '../map'
 import { ss } from '@/utils/storage'
-
-const LOCAL_NAME = 'appSetting'
 
 export type Theme = 'light' | 'dark' | 'auto'
 
@@ -17,10 +16,10 @@ export function defaultSetting(): AppState {
 }
 
 export function getLocalSetting(): AppState {
-  const localSetting: AppState | undefined = ss.get(LOCAL_NAME)
+  const localSetting: AppState | undefined = ss.get(LOCAL_APP)
   return { ...defaultSetting(), ...localSetting }
 }
 
 export function setLocalSetting(setting: AppState): void {
-  ss.set(LOCAL_NAME, setting)
+  ss.set(LOCAL_APP, setting)
 }

@@ -1,8 +1,7 @@
+import { LOCAL_NAME, LOCAL_SETTING } from '../map'
 import { ss } from '@/utils/storage'
 
-const LOCAL_NAME = 'chatStorage'
-
-const defaultRole = ss.get('settingsStorage')
+const defaultRole = ss.get(LOCAL_SETTING)
 export function defaultState(): Chat.ChatState {
   const uuid = 1002
   return {

@@ -3,8 +3,11 @@ import Cookies from 'cookiejs'
 import type { UserInfo, UserState } from './helper'
 import { defaultSetting, getLocalState, setLocalState } from './helper'
 import { fetchSignOut } from '@/api'
+import { setCrossSubdomainCookie } from '@/utils/functions'
 
-const userInfo: any = Cookies.get('userInfo')
+// 获取koudingtu.com域名下的所有cookie
+const cookies = Cookies.all()
+const { userInfo } = cookies
 
 export const useUserStore = defineStore('user-store', {
   state: (): UserState => {
@@ -27,7 +30,7 @@ export const useUserStore = defineStore('user-store', {
     },
 
     recordState() {
-      Cookies.set('userInfo', JSON.stringify(this.userInfo))
+      setCrossSubdomainCookie('userInfo', JSON.stringify(this.userInfo))
       setLocalState(this.$state)
     },
 
