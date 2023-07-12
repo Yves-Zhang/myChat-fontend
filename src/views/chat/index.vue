@@ -18,9 +18,6 @@ import { t } from '@/locales'
 import defaultRole from '@/assets/defaultRole.json'
 
 const ms = useMessage()
-const voiceStatus = ref<boolean>(false)
-
-const myDivRef = ref(null)
 
 let controller = new AbortController()
 
