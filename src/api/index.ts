@@ -1,6 +1,9 @@
 import type { AxiosProgressEvent, GenericAbortSignal } from 'axios'
-import { post } from '@/utils/request'
+import { get, post } from '@/utils/request'
 import { useAuthStore, useSettingStore } from '@/store'
+
+const prefix_node = import.meta.env.VITE_GLOB_API_URL
+const prefix_java = import.meta.env.VITE_GLOB_API_URL_JAVA
 
 export function fetchChatAPI<T = any>(
   prompt: string,
@@ -8,7 +11,7 @@ export function fetchChatAPI<T = any>(
   signal?: GenericAbortSignal,
 ) {
   return post<T>({
-    url: '/chat',
+    url: `${prefix_node}/chat`,
     data: { prompt, options },
     signal,
   })
@@ -16,7 +19,7 @@ export function fetchChatAPI<T = any>(
 
 export function fetchChatConfig<T = any>() {
   return post<T>({
-    url: '/config',
+    url: `${prefix_node}/config`,
   })
 }
 
@@ -45,7 +48,7 @@ export function fetchChatAPIProcess<T = any>(
   }
 
   return post<T>({
-    url: '/chat-process',
+    url: `${prefix_node}/chat-process`,
     data,
     signal: params.signal,
     onDownloadProgress: params.onDownloadProgress,
@@ -54,13 +57,19 @@ export function fetchChatAPIProcess<T = any>(
 
 export function fetchSession<T>() {
   return post<T>({
-    url: '/session',
+    url: `${prefix_node}/session`,
   })
 }
 
 export function fetchVerify<T>(token: string) {
   return post<T>({
-    url: '/verify',
+    url: `${prefix_node}/verify`,
     data: { token },
+  })
+}
+
+export function fetchSignOut<T>() {
+  return get<T>({
+    url: `${prefix_java}/login/signOut`,
   })
 }

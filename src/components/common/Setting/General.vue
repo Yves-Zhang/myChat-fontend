@@ -67,9 +67,9 @@ const themeOptions: { label: string; key: Theme; icon: string }[] = [
 // }
 
 function handleReset() {
-  userStore.resetUserInfo()
-  ms.success(t('common.success'))
-  window.location.reload()
+  userStore.exitCurrentUser(() => {
+    ms.success(t('common.success'))
+  })
 }
 
 // function exportData(): void {

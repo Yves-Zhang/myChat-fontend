@@ -24,6 +24,7 @@ export interface Response<T = any> {
   data: T
   message: string | null
   status: string
+  code?: string
 }
 
 function http<T = any>(
@@ -31,6 +32,10 @@ function http<T = any>(
 ) {
   const successHandler = (res: AxiosResponse<Response<T>>) => {
     const authStore = useAuthStore()
+
+    // 兼容java接口
+    if (res.data.code === 'success')
+      return res.data
 
     if (res.data.status === 'Success' || typeof res.data === 'string')
       return res.data
@@ -72,7 +77,7 @@ function http<T = any>(
   }
 
   return method === 'GET'
-    ? request.get(url, { params, signal, onDownloadProgress }).then(successHandler, failHandler)
+    ? request.get(url, { headers: { ...CustomHeaders }, params, signal, onDownloadProgress }).then(successHandler, failHandler)
     : request.post(url, params, { headers: { ...CustomHeaders }, signal, onDownloadProgress }).then(successHandler, failHandler)
 }
 

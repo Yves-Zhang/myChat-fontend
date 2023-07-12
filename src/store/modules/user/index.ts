@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import Cookies from 'cookiejs'
 import type { UserInfo, UserState } from './helper'
 import { defaultSetting, getLocalState, setLocalState } from './helper'
+import { fetchSignOut } from '@/api'
 
 const userInfo: any = Cookies.get('userInfo')
 
@@ -30,8 +31,12 @@ export const useUserStore = defineStore('user-store', {
       setLocalState(this.$state)
     },
 
-    exitCurrentUser() {
-
+    exitCurrentUser(cb?: () => void) {
+      fetchSignOut().then(() => {
+        this.resetUserInfo()
+        window.location.href = 'https://ai.koudingtu.com/webapp/authPage/#/'
+        cb?.()
+      })
     },
   },
 })

@@ -1,11 +1,11 @@
 import axios, { type AxiosResponse } from 'axios'
-import { useAuthStore } from '@/store'
+// import { useAuthStore } from '@/store'
 
-let baseURL = import.meta.env.VITE_APP_API_BASE_URL + import.meta.env.VITE_GLOB_API_URL
+let baseURL = import.meta.env.VITE_APP_API_BASE_URL
 
 if (process.env.NODE_ENV === 'development') {
   // 开发环境逻辑
-  baseURL = `${import.meta.env.VITE_APP_API_BASE_URL_DEV}${import.meta.env.VITE_GLOB_API_URL}`
+  baseURL = import.meta.env.VITE_APP_API_BASE_URL_DEV
 }
 
 const service = axios.create({
@@ -15,9 +15,9 @@ const service = axios.create({
 
 service.interceptors.request.use(
   (config) => {
-    const token = useAuthStore().token
-    if (token)
-      config.headers.Authorization = `Bearer ${token}`
+    // const token = useAuthStore().token
+    // if (token)
+    //   config.headers.Authorization = `Bearer ${token}`
     return config
   },
   (error) => {
@@ -33,6 +33,13 @@ service.interceptors.response.use(
     throw new Error(response.status.toString())
   },
   (error) => {
+    if (error.response.status === 401) {
+      setTimeout(() => {
+        window.location.href = 'https://ai.koudingtu.com/webapp/authPage/#/'
+      }, 1000)
+      return Promise.reject(new Error('登录失效，请重新登录'))
+    }
+
     return Promise.reject(error)
   },
 )
